@@ -1,6 +1,0 @@
-node_modules
-public
-build
-npm-debug.log
-.env
-.DS_Store
