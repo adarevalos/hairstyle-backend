@@ -29,13 +29,39 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 //app.use(express.static(path.join(__dirname, 'public')));
 
+
+
+app.use((req, res, next)=>{
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, ContentType, Accept");
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+   });
+   
+
+
 //configurar las rutas
 
-// app.get('/', function (req,res){
+app.get('/', (req, res) => {
 
-//     res.send('Hola mundo');
+    res.json({
+        'rutaPrincipal':'GET/',
+        'obtenerTodosProductos':'GET/product',
+        'obtenerUnProductos':'GET/product/:id',
+        ejemplo:{
+            codigo:"004",
+            nombre:"esmalte",
+            descripcion:"Esmalte para uñas",
+            cantidad:17,
+            precio:12500,
+            img:"url de la imagen"
+        }   
+    })
 
-// });
+});
+
+
 app.use('/api', require('./routes/nota')); //Aqui conectamos las rutas (del folder routes) con este app.js
 app.use('/api', require('./routes/producto'));
 app.use('/api', require('./routes/empleado'));
